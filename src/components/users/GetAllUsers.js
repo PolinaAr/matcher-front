@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 
 function GetAllUsers() {
     const[data, setData] = useState([]);
@@ -26,7 +27,8 @@ function GetAllUsers() {
             <h1>All users</h1>
             {data.map(item => (
                 <p key={item.id}>
-                    {item.id} {item.name} {item.lastname} {item.team}
+                    {item.id} {item.name} {item.lastname} {item.team} 
+                    <Link to={`/users/${item.id}`}>Edit</Link>
                     <button onClick={(e) => deleteHandle(e, item.id)}>Delete</button>
                 </p>
             ))}

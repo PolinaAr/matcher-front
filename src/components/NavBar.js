@@ -10,9 +10,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 
-const settings = [{name:'Create user', link:'/register'}, {name:'Home', link:'/'}];
+const settings = [{name:'View users', link:'/users'}, {name:'Create user', link:'/register'}, 
+  {name:'Create team', link:'/team'}, {name:'Home', link:'/'}];
 
 function ResponsiveAppBar() {
 
@@ -30,7 +30,6 @@ function ResponsiveAppBar() {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

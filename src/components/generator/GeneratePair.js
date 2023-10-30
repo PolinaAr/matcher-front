@@ -9,6 +9,8 @@ function GeneratePair() {
     const [userPairs, setUserPairs] = useState({ mainUser: null, opponentUser: null });
     const [mainUserMark, setMainUserMark] = useState('');
     const [opponentUserMark, setOpponentUserMark] = useState('');
+    const [messageOnGenerate, setMessageOnGenerate] = useState('');
+    const [messageOnSave, setMessageOnSave] = useState('');
   
   const BASE_URL = global.config.BASE_URL;
 
@@ -20,10 +22,12 @@ function GeneratePair() {
         setUserPairs({ mainUser, opponentUser });
       })
       .catch((error) => {
-        console.error('Error generating pairs:', error);
+          console.log(error);
+        setMessageOnGenerate(error.response.data.message)
       });
       setMainUserMark('');
-      setOpponentUserMark('')
+      setOpponentUserMark('');
+      setMessageOnSave('');
   };
 
   function handleAxiosPost() {
@@ -39,9 +43,12 @@ function GeneratePair() {
       };
   
     axios.post(BASE_URL + '/pairs/save', postData)
-      .then((response) => {
-        console.log("success")
-      });
+        .then((resp) => {
+            setMessageOnSave("Saved")
+        })
+        .catch((error) => {
+            setMessageOnSave(error.response.data.message)
+        });
   }
 
   return (
@@ -69,6 +76,7 @@ function GeneratePair() {
                 <Button variant="contained" color="primary" sx={{ mt: 2}} onClick={handleAxiosPost}>
                 Save
                 </Button>
+                <p>{messageOnSave}</p>
                 </div>
             ) : null}
       </Grid>
@@ -77,6 +85,7 @@ function GeneratePair() {
         sx={{mt:15, fontSize:20}} onClick={handleGeneratePairs}>
           Generate Pair
         </Button>
+        <p>{messageOnGenerate}</p>
       </Grid>
     </Grid>
   );
