@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Grid, Typography } from '@mui/material';
+import { Button, Grid, Typography, TextField } from '@mui/material';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 
@@ -7,6 +7,8 @@ function GeneratePair() {
     const location = useLocation();
     const selectedUsers = location.state;
     const [userPairs, setUserPairs] = useState({ mainUser: null, opponentUser: null });
+    const [mainUserMark, setMainUserMark] = useState('');
+    const [opponentUserMark, setOpponentUserMark] = useState('');
   
   const BASE_URL = global.config.BASE_URL;
 
@@ -20,21 +22,19 @@ function GeneratePair() {
       .catch((error) => {
         console.error('Error generating pairs:', error);
       });
+      setMainUserMark('');
+      setOpponentUserMark('')
   };
 
   function handleAxiosPost() {
     const postData = {
         mainUser: {
           id: userPairs.mainUser.id,
-          name: userPairs.mainUser.name,
-          lastname: userPairs.mainUser.lastname,
-          team: userPairs.mainUser.team,
+          mark: parseFloat(mainUserMark),
         },
         opponentUser: {
           id: userPairs.opponentUser.id,
-          name: userPairs.opponentUser.name,
-          lastname: userPairs.opponentUser.lastname,
-          team: userPairs.opponentUser.team,
+          mark: parseFloat(opponentUserMark),
         },
       };
   
@@ -50,8 +50,22 @@ function GeneratePair() {
             {userPairs.mainUser ? (
                 <div>
                 <Typography sx={{ mt: 20, fontSize: 20 }}>
-                    {userPairs.mainUser.name} {userPairs.mainUser.lastname} {userPairs.opponentUser.name} {userPairs.opponentUser.lastname}
+                    {userPairs.mainUser.name} {userPairs.mainUser.lastname} / {userPairs.opponentUser.name} {userPairs.opponentUser.lastname}
                 </Typography>
+                <TextField
+                sx={{ m: 3, width: 150 }}
+                label={userPairs.mainUser.name}
+                variant="outlined"
+                value={mainUserMark}
+                onChange={(e) => setMainUserMark(e.target.value)}
+                />
+                <TextField
+                sx={{ m: 3, width: 150 }}
+                label={userPairs.opponentUser.name}
+                variant="outlined"
+                value={opponentUserMark}
+                onChange={(e) => setOpponentUserMark(e.target.value)}
+                /> <br/>
                 <Button variant="contained" color="primary" sx={{ mt: 2}} onClick={handleAxiosPost}>
                 Save
                 </Button>
@@ -60,7 +74,7 @@ function GeneratePair() {
       </Grid>
       <Grid item xs={12}>
         <Button variant="contained" color="primary" 
-        sx={{mt:20, fontSize:20}} onClick={handleGeneratePairs}>
+        sx={{mt:15, fontSize:20}} onClick={handleGeneratePairs}>
           Generate Pair
         </Button>
       </Grid>
