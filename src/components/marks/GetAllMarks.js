@@ -29,8 +29,9 @@ function GetAllMarks(){
 
     return(
         <div>
-            <h1>{data.name} {data.lastname}</h1>
+            {data &&
             <Paper elevation={3}>
+            <h1>{data.name} {data.lastname}</h1>
                 <Table>
                 <TableHead>
                     <TableRow>
@@ -47,7 +48,7 @@ function GetAllMarks(){
                 ))}
                 </TableBody>
                 </Table>
-            </Paper>
+            </Paper>}
             <p>{message}</p>
         </div>
     )
