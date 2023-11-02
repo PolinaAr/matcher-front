@@ -8,6 +8,8 @@ import GeneratePair from './components/generator/GeneratePair';
 import ChoosePeople from './components/generator/ChoosePeople';
 import CreateTeam from './components/teams/CreateTeam';
 import UpdateUserTeam from './components/users/UpdateUserTeam';
+import AddIndividualMark from './components/marks/AddIndividualMark';
+import GetAllMarks from './components/marks/GetAllMarks';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
           <Route path='/pairs' element={<GeneratePair />} />
           <Route path='/team' element={<CreateTeam />} />
           <Route path="/users/:id" element={<UpdateUserTeam />}  />
+          <Route path='/users/:id/marks/add' element={<AddIndividualMark />} />
+          <Route path='/users/:id/marks' element={<GetAllMarks />} />
         </Routes>
       </BrowserRouter>
     </div>

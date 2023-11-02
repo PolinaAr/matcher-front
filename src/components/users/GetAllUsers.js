@@ -29,6 +29,8 @@ function GetAllUsers() {
                 <p key={item.id}>
                     {item.id} {item.name} {item.lastname} {item.team} 
                     <Link to={`/users/${item.id}`}>Edit</Link>
+                    <Link to={`/users/${item.id}/marks/add`}>Add mark</Link>
+                    <Link to={`/users/${item.id}/marks`}>View marks</Link>
                     <button onClick={(e) => deleteHandle(e, item.id)}>Delete</button>
                 </p>
             ))}
